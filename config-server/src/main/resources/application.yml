@@ -3,12 +3,12 @@ spring:
     config:
       server:
         native:
-          search-locations: classpath:/shared
+          search-locations: classpath:/shared #tells spring where to locate the config files
   profiles:
-    active: native
+    active: native #we are using native because the config server uses a git repo by default
   security:
     user:
-      password: 1234
+      password: 1234 #the password which apps will use to access its configurations
 
 server:
-  port: 8888
+  port: 8888 #the port where the config-server will be acessible
