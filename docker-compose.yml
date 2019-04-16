@@ -1,0 +1,30 @@
+mongo-oauth:
+  image: mongo:4.0.4
+  restart: always
+  environment:
+    MONGO_INITDB_ROOT_USERNAME: root
+    MONGO_INITDB_ROOT_PASSWORD: example
+    MONGO_INITDB_DATABASE: oauth-db
+    MONGODB_USER: oauth-user
+    MONGODB_DATABASE: oauth-db
+    MONGODB_PASS: password
+  log_opt:
+    max-size: "10m"
+    max-file: "10"
+  ports:
+    - 27017:27017
+  volumes:
+    - ./mongo-init/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh
+
+mongo-express-oauth:
+  image: mongo-express:0.49
+  restart: always
+  ports:
+    - 10081:8081
+  environment:
+    ME_CONFIG_MONGODB_ADMINUSERNAME: root
+    ME_CONFIG_MONGODB_ADMINPASSWORD: example
+    ME_CONFIG_MONGODB_SERVER: mongo-oauth
+    ME_CONFIG_MONGODB_PORT: 27017
+  links:
+    - mongo-oauth
