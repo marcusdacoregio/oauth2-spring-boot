@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.MongoTemplate;
 public class MongoBeeConfig {
 
     private static final String MONGODB_URL_FORMAT = "mongodb://%s:%s@%s:%d/%s";
-    private static final String MONGODB_CHANGELOGS_PACKAGE = "io.marcusdacoregio.authservice.config.mongodb.changelogs";
+    private static final String MONGODB_CHANGELOGS_PACKAGE = "com.marcusdacoregio.authservice.config.mongodb.changelogs";
 
     @Autowired
     private MongoProperties mongoProperties;
