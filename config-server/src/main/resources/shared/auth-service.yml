@@ -1,0 +1,13 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      username: oauth-user
+      password: password
+      database: oauth-db
+
+server:
+  servlet:
+    context-path: /uaa
+  port: 8081
