@@ -29,7 +29,7 @@ public class UserServiceImpl implements UserService {
         user.setPassword(hash);
         user.setActivated(Boolean.TRUE); // TODO send sms or email with code for activation
         user.setAuthorities(new HashSet<>(Collections.singletonList(Authorities.ROLE_USER)));
-u
+
         // TODO other routines on account creation
 
         return userRepository.save(user);
