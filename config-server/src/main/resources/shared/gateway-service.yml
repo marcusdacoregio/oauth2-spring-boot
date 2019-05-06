@@ -7,7 +7,7 @@ zuul:
   routes:
     auth-service:
       path: /uaa/** #path that will be intercepted
-      url: auth-service #which url the request will e mapped to
+      url: auth-service #which url the request will be mapped to
       stripPrefix: false #if zuul should replace the "/uaa/" segment
       sensitiveHeaders:
 
