@@ -12,7 +12,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableDiscoveryClient
 @EnableOAuth2Sso
 @EnableFeignClients
-@EnableCircuitBreaker
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class AccountServiceApplication {
 
