@@ -1,16 +1,14 @@
 package com.marcusdacoregio.authservice.dto;
 
-import com.marcusdacoregio.authservice.enums.Authorities;
+import java.io.Serializable;
 
-import java.util.List;
+public class UserDto implements Serializable {
 
-public class UserDto {
+    private static final long serialVersionUID = 1L;
 
     private String id;
 
     private String username;
-
-    private List<Authorities> authorities;
 
     public String getId() {
         return id;
@@ -26,13 +24,5 @@ public class UserDto {
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public List<Authorities> getAuthorities() {
-        return authorities;
-    }
-
-    public void setAuthorities(List<Authorities> authorities) {
-        this.authorities = authorities;
     }
 }

@@ -3,15 +3,12 @@ package com.marcusdacoregio.authservice.controller;
 import com.marcusdacoregio.authservice.domain.User;
 import com.marcusdacoregio.authservice.dto.UserDto;
 import com.marcusdacoregio.authservice.dto.UserRegistrationDto;
-import com.marcusdacoregio.authservice.enums.Authorities;
 import com.marcusdacoregio.authservice.service.UserService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
@@ -39,11 +36,6 @@ public class UserController {
         UserDto userDto = new UserDto();
         userDto.setId(user.getId());
         userDto.setUsername(user.getUsername());
-        userDto.setAuthorities(
-                user.getAuthorities()
-                        .stream()
-                        .map(authority -> Authorities.valueOf(authority.getAuthority()))
-                        .collect(Collectors.toList()));
         return userDto;
     }
 

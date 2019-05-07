@@ -9,5 +9,17 @@ eureka:
 security:
   oauth2:
     resource:
-      user-info-uri: http://auth-service/uaa/users/current
+      user-info-uri: http://auth-service/uaa/user/current
       token-info-uri: http://auth-service/uaa/oauth/check_token
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 20000
