@@ -9,8 +9,8 @@ eureka:
 security:
   oauth2:
     resource:
-      user-info-uri: http://localhost:8081/uaa/user/current
-      token-info-uri: http://localhost:8081/uaa/oauth/check_token
+      user-info-uri: http://localhost:8080/uaa/user/current
+      token-info-uri: http://localhost:8080/uaa/oauth/check_token
 
 logging:
   level:
