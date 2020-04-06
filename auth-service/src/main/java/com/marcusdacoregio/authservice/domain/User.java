@@ -1,32 +1,38 @@
 package com.marcusdacoregio.authservice.domain;
 
 import com.marcusdacoregio.authservice.enums.Authorities;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
-@Document
+@Entity
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
+    @Column(name = "id", columnDefinition = "serial")
     private String id;
 
-    @Indexed(unique = true)
+    @Column(name = "username")
     private String username;
 
+    @Column(name = "password")
     private String password;
 
+    @Column(name = "activated")
     private boolean activated;
 
+    @Column(name = "activation_key")
     private String activationKey;
 
+    @Column(name = "reset_password_key")
     private String resetPasswordKey;
 
-    private Set<Authorities> authorities = new HashSet<>();
+    @Column(name = "authorities")
+    private String authorities;
 
     public String getId() {
         return id;
@@ -48,7 +54,9 @@ public class User implements UserDetails {
 
     @Override
     public List<GrantedAuthority> getAuthorities() {
-        return new ArrayList<>(authorities);
+        return authorities != null
+                ? Arrays.stream(authorities.split(",")).map(Authorities::valueOf).collect(Collectors.toList())
+                : null;
     }
 
     public void setUsername(String username) {
@@ -104,7 +112,7 @@ public class User implements UserDetails {
     }
 
     public void setAuthorities(Set<Authorities> authorities) {
-        this.authorities = authorities;
+        this.authorities = authorities.stream().map(Authorities::getAuthority).collect(Collectors.joining(","));
     }
 
     @Override

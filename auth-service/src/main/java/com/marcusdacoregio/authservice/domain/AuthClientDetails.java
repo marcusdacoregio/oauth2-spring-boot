@@ -1,36 +1,49 @@
 package com.marcusdacoregio.authservice.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.provider.ClientDetails;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.*;
 
-@Document
+@Entity
+@Table(name = "oauth_client")
 public class AuthClientDetails implements ClientDetails {
 
     private static final long serialVersionUID = 1L;
 
     @Id
+    @Column(name = "id", columnDefinition = "serial")
     private String id;
 
+    @Column(name = "client_id")
     private String clientId;
 
+    @Column(name = "client_secret")
     private String clientSecret;
 
+    @Column(name = "grant_types")
     private String grantTypes;
 
+    @Column(name = "scopes")
     private String scopes;
 
+    @Column(name = "resources")
     private String resources;
 
+    @Column(name = "redirect_uris")
     private String redirectUris;
 
+    @Column(name = "access_token_validity")
     private Integer accessTokenValidity;
 
+    @Column(name = "refresh_token_validity")
     private Integer refreshTokenValidity;
 
+    @Column(name = "additional_information")
     private String additionalInformation;
 
     @Override

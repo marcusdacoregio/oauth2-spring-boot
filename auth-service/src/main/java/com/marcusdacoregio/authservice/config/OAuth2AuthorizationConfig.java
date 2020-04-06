@@ -1,6 +1,5 @@
 package com.marcusdacoregio.authservice.config;
 
-import com.marcusdacoregio.authservice.config.mongodb.MongoTokenStore;
 import com.marcusdacoregio.authservice.service.AuthClientDetailsService;
 import com.marcusdacoregio.authservice.service.CustomUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +14,9 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerEndpointsConfigurer;
 import org.springframework.security.oauth2.config.annotation.web.configurers.AuthorizationServerSecurityConfigurer;
 import org.springframework.security.oauth2.provider.token.TokenStore;
+import org.springframework.security.oauth2.provider.token.store.JdbcTokenStore;
+
+import javax.sql.DataSource;
 
 @Configuration
 @EnableAuthorizationServer
@@ -33,6 +35,9 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     @Autowired
     private PasswordEncoder encoder;
 
+    @Autowired
+    private DataSource dataSource;
+
     @Override
     public void configure(ClientDetailsServiceConfigurer clients) throws Exception {
         clients.withClientDetails(authClientDetailsService);
@@ -40,11 +45,11 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
 
     @Bean
     public TokenStore tokenStore() {
-        return new MongoTokenStore();
+        return new JdbcTokenStore(dataSource);
     }
 
     @Override
-    public void configure(AuthorizationServerEndpointsConfigurer endpoints) throws Exception {
+    public void configure(AuthorizationServerEndpointsConfigurer endpoints) {
         endpoints
                 .tokenStore(tokenStore())
                 .authenticationManager(authenticationManager)
@@ -52,7 +57,7 @@ public class OAuth2AuthorizationConfig extends AuthorizationServerConfigurerAdap
     }
 
     @Override
-    public void configure(AuthorizationServerSecurityConfigurer oauthServer) throws Exception {
+    public void configure(AuthorizationServerSecurityConfigurer oauthServer) {
         oauthServer
                 .tokenKeyAccess("permitAll()")
                 .checkTokenAccess("isAuthenticated()")
