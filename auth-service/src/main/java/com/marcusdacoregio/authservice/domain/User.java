@@ -14,6 +14,7 @@ public class User implements UserDetails {
 
     @Id
     @Column(name = "id", columnDefinition = "serial")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private String id;
 
     @Column(name = "username")
